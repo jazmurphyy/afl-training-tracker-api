@@ -44,9 +44,10 @@ agent any
         }
 
         stage('Release') {
-            steps {
-                echo 'Release stage completed'
-            }
-        }
+    steps {
+        sh 'git tag v1.0.${BUILD_NUMBER}'
+        echo 'Release version tagged successfully'
+    }
+}
     }
 }
