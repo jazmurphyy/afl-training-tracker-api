@@ -1,0 +1,6 @@
+services:
+  afl-training-tracker-api:
+    build: .
+    container_name: afl-training-tracker-api
+    ports:
+      - "3000:3000"
