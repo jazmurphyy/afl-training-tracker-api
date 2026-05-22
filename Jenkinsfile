@@ -8,11 +8,13 @@ agent any
 
     stages {
 
-        stage('Build') {
-            steps {
-                sh 'npm install'
-            }
-        }
+       stage('Build') {
+    steps {
+        sh 'npm install'
+        sh 'docker build -t afl-training-tracker-api:${BUILD_NUMBER} .'
+        sh 'docker tag afl-training-tracker-api:${BUILD_NUMBER} afl-training-tracker-api:latest'
+    }
+}
 
         stage('Test') {
             steps {
@@ -41,7 +43,7 @@ agent any
 
         stage('Deploy') {
             steps {
-                sh 'docker compose up -d --build'
+                sh 'docker compose up -d'
             }
         }
 
