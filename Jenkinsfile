@@ -47,10 +47,12 @@ agent any
             }
         }
 
-        stage('Release') {
+     stage('Release') {
     steps {
-        sh 'git tag v1.0.${BUILD_NUMBER}'
-        echo 'Release version tagged successfully'
+        withCredentials([string(credentialsId: 'RENDER_DEPLOY_HOOK', variable: 'RENDER_DEPLOY_HOOK')]) {
+            sh 'curl -X POST $RENDER_DEPLOY_HOOK'
+        }
+        echo 'Application promoted to production environment on Render'
     }
 }
     }
