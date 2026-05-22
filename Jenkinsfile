@@ -22,12 +22,14 @@ agent any
 
         stage('Code Quality') {
             steps {
-                sh '''
-                sonar \
-                -Dsonar.token=309bd52d926d650af30f1759de5644bccd61dd2f \
-                -Dsonar.projectKey=jazmurphyy_afl-training-tracker-api \
-                -Dsonar.organization=jazmurphyy
-                '''
+               withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+    sh '''
+    sonar \
+    -Dsonar.token=$SONAR_TOKEN \
+    -Dsonar.projectKey=jazmurphyy_afl-training-tracker-api \
+    -Dsonar.organization=jazmurphyy
+    '''
+}
             }
         }
 
